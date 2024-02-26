@@ -6,7 +6,7 @@ interface ButtonProps {
 
 
 export function Button({variant="primary", ...props} : ButtonProps) {
-    
+
     return( 
         <ButtonContainer variant={variant} {...props}>
             Ok
