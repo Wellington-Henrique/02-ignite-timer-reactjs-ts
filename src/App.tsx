@@ -4,6 +4,7 @@ import { defaultTheme } from './styles/themes/default'
 
 import { GlobalStyle } from './styles/globals.ts'
 import { Router } from './Router.tsx'
+import { CyclesContextProvider } from './contexts/CycleContext.tsx'
 
 export function App() {
   return (
@@ -11,7 +12,9 @@ export function App() {
       <GlobalStyle />
 
       <BrowserRouter>
-        <Router />
+        <CyclesContextProvider>
+          <Router />
+        </CyclesContextProvider>
       </BrowserRouter>
     </ThemeProvider>
   )
