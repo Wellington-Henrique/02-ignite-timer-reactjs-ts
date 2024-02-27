@@ -20,7 +20,7 @@ const newFormValidationSchema = zod.object({
   task: zod.string().min(1, 'informe a tarefa'),
   minutesAmount: zod
     .number()
-    .min(5, 'O cliclo precisa ser de no mínimo 5 minutos')
+    .min(1, 'O cliclo precisa ser de no mínimo 5 minutos')
     .max(60, 'O cliclo precisa ser de no máximo 60 minutos'),
 })
 
@@ -32,6 +32,7 @@ interface Cycle {
   minutes: number
   startDate: Date
   interruptedDate?: Date
+  finishedDate?: Date
 }
 
 export function Home() {
@@ -63,16 +64,30 @@ export function Home() {
 
     if (activeCycle) {
       interval = setInterval(() => {
-        setAmountSecondsPassed(
-          differenceInSeconds(new Date(), activeCycle.startDate),
+        const secondDifference = differenceInSeconds(
+          new Date(),
+          activeCycle.startDate,
         )
+
+        if (secondDifference >= totalSeconds) {
+          setCycles((prev) =>
+            prev.map((cycle) => {
+              if (cycle.id === activeCycleId) {
+                return { ...cycle, finishedDate: new Date() }
+              }
+
+              return cycle
+            }),
+          )
+
+          setAmountSecondsPassed(totalSeconds)
+          clearInterval(interval)
+        } else {
+          setAmountSecondsPassed(secondDifference)
+        }
       }, 1000)
     }
-
-    return () => {
-      clearInterval(interval)
-    }
-  }, [activeCycle])
+  }, [activeCycle, totalSeconds, activeCycleId])
 
   useEffect(() => {
     if (activeCycle) document.title = `${minutes}:${seconds}`
@@ -135,7 +150,7 @@ export function Home() {
             type="number"
             placeholder="00:00"
             step={5}
-            min={5}
+            min={1}
             max={60}
             disabled={!!activeCycle}
             {...register('minutesAmount', { valueAsNumber: true })}
