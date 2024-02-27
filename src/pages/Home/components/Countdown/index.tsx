@@ -34,12 +34,17 @@ export function Countdown() {
 
         if (secondDifference >= totalSeconds) {
           markCurrentCycleAsFinished()
+
           setSecondsPassed(totalSeconds)
           clearInterval(interval)
         } else {
           setSecondsPassed(secondDifference)
         }
       }, 1000)
+    }
+
+    return () => {
+      clearInterval(interval)
     }
   }, [
     activeCycle,
