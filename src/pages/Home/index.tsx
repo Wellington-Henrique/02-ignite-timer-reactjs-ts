@@ -1,11 +1,11 @@
 import { useContext } from 'react'
-import { CyclesContext } from '../../contexts/CycleContext'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 
 import { NewCycleForm } from './components/NewCycleForm'
 import { Countdown } from './components/Countdown'
+import { CyclesContext } from '../../contexts/CyclesContext'
 
 import { HandPalm, Play } from 'phosphor-react'
 

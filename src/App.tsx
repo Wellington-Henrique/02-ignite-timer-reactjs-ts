@@ -4,7 +4,7 @@ import { defaultTheme } from './styles/themes/default'
 
 import { GlobalStyle } from './styles/globals.ts'
 import { Router } from './Router.tsx'
-import { CyclesContextProvider } from './contexts/CycleContext.tsx'
+import { CyclesContextProvider } from './contexts/CyclesContext.tsx'
 
 export function App() {
   return (
